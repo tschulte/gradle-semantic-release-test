@@ -7,7 +7,11 @@ public class Test {
     }
 
     public static String helloWorld() {
-        return "Hello World";
+        return hello("World");
+    }
+
+    public static String hello(String who) {
+        return "Hello " + who;
     }
 
 }
