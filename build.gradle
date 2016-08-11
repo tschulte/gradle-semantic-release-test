@@ -30,6 +30,6 @@ artifacts {
 }
 semanticRelease {
     changeLog {
-        releaseAssets(jar, sourcesJar)
+        releaseAssets(jar, sourcesJar, javadocJar)
     }
 }
