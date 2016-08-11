@@ -16,6 +16,11 @@ apply plugin: 'maven'
 
 group = "de.gliderpilot.gradle.semantic-release.test"
 
+def setExtValue(String property, String systemenv) {
+    project.ext."$property" = project.hasProperty(property) ? project.getProperty(property) : System.getenv(systemenv)
+}
+setExtValue('ghToken', 'GH_TOKEN')
+
 task sourcesJar(type: Jar) {
     classifier = 'sources'
     from sourceSets.main.allSource
@@ -30,6 +35,7 @@ artifacts {
 }
 semanticRelease {
     changeLog {
+        ghToken = project.ext.ghToken
         releaseAssets(jar, sourcesJar, javadocJar)
     }
 }
