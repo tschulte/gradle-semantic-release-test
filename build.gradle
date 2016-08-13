@@ -1,18 +1,8 @@
-buildscript {
-    repositories {
-        maven {
-            url "http://oss.jfrog.org/oss-snapshot-local"
-        }
-        jcenter()
-    }
-    dependencies {
-        classpath "de.gliderpilot.gradle.semantic-release:gradle-semantic-release-plugin:1.2.0-pull-14-SNAPSHOT"
-    }
+plugins {
+    id 'java'
+    id 'de.gliderpilot.semantic-release' version '1.2.0'
+    id 'maven'
 }
-
-apply plugin: 'java'
-apply plugin: 'de.gliderpilot.semantic-release'
-apply plugin: 'maven'
 
 group = "de.gliderpilot.gradle.semantic-release.test"
 
@@ -34,8 +24,10 @@ artifacts {
     javadocJar
 }
 semanticRelease {
-    changeLog {
+    repo {
         ghToken = project.ext.ghToken
-        releaseAssets(jar, sourcesJar, javadocJar)
+        releaseAsset jar, contentType: 'application/zip'
+        releaseAsset sourcesJar, label: 'the sources of the project', contentType: 'application/zip'
+        releaseAsset javadocJar, label: 'the javadoc of the project', contentType: 'application/zip'
     }
 }
