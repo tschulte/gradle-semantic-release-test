@@ -5,9 +5,12 @@ plugins {
     id 'java'
     id 'de.gliderpilot.semantic-release' version '1.2.0'
     id 'maven'
+    id 'application'
 }
 
 group = "de.gliderpilot.gradle.semantic-release.test"
+
+mainClassName = "de.gliderpilot.semanticrelease.test.Test"
 
 def setExtValue(String property, String systemenv) {
     project.ext."$property" = project.hasProperty(property) ? project.getProperty(property) : System.getenv(systemenv)
@@ -25,6 +28,14 @@ task javadocJar(type: Jar) {
 artifacts {
     sourcesJar
     javadocJar
+}
+
+jar {
+    manifest {
+        attributes([
+                "main-class": mainClassName
+        ])
+    }
 }
 release {
     // add a second strategy to create release candidates from 'rc/.*' branches
