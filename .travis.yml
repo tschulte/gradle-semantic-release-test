@@ -6,6 +6,9 @@ addons:
 language: java
 jdk: oraclejdk8
 env: TERM=dumb
+cache:
+  directories:
+  - $HOME/.gradle
 # don't build tags -- they would fail due to gradle-git anyway
 branches:
   except:
